@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .form import ApplicationForm
 from .models import ApplicationFormModel
 from django.contrib import messages
+from django.core.mail import EmailMessage
 
 
 def index(request):
@@ -14,5 +15,12 @@ def index(request):
                 request,
                 f"Thank you for your interest, {application['first_name']}! Your application has been submitted successfully!",
             )
-            return redirect(request.META['HTTP_REFERER'])
+            message_body = f"Hello, {application['first_name']}!\nWe've recieved your job application and we will notify you the outcome of your application once it is processed.\nThank you for your interest!"
+            email_message = EmailMessage(
+                subject="Application Submission Confirmation",
+                body=message_body,
+                to=[application["email"]],
+            )
+            email_message.send()
+            return redirect(request.META["HTTP_REFERER"])
     return render(request, "index.html")
