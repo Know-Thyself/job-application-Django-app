@@ -8,12 +8,5 @@ class ApplicationFormModel(models.Model):
     date = models.DateField("start date")
     occupation = models.CharField(max_length=80)
 
-    def __str__(self) -> dict:
-        applicant = {
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "email": self.email,
-            "date": self.date,
-            "occupation": self.occupation,
-        }
-        return applicant
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
