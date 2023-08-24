@@ -24,3 +24,7 @@ def index(request):
             email_message.send()
             return redirect(request.META["HTTP_REFERER"])
     return render(request, "index.html")
+
+
+def about(request):
+    return render(request, "about.html")
